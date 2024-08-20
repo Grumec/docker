@@ -1,0 +1,24 @@
+version: "3.3"
+
+services:
+  3dsolid:
+    image: 3dsolid
+    # network_mode: "host"
+    container_name: 3dsolid-cont
+    user: 3dSolid
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/app/3dSolid
+      - /tmp/.X11-unix/:/tmp/.X11-unix/
+    ports:
+      - "80"
+    environment:
+      - DISPLAY=${DISPLAY}
+      - LD_LIBRARY_PATH=/usr/local/lib/
+      - RESULT_DIRECTORY=/app/3dSolid/results/
+      - PYTHONPATH=/app/3dSolid/
+    # command: bash -c "echo from_docker_compose && bash"
+    # stdin_open: true # docker run -i
+    # tty: true # docker run -t
